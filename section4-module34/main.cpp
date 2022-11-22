@@ -1,20 +1,21 @@
 #include <iostream>
 #include <array>
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
 
 int main() {
+    // CANNOT RESIZE ARRAY BECAUSE MEMORY IS ALLOCATED NEXT TO EACH OTHER
     const size_t ARRAY_SIZE {10};
-   size_t practice_array[ARRAY_SIZE];
-    for (size_t i {0}; i < ARRAY_SIZE; i++) {
-       practice_array[i] = i +1;
-   }
+    array<size_t, ARRAY_SIZE> testArray {};
 
-   for (auto i : practice_array) {
-       cout << i << endl;
-   }
+    for (size_t i {0}; i < testArray.size(); i++) {
+        testArray[i] = i*2;
+    }
+
+    for (auto arr: testArray) {
+        cout << arr << endl;
+    }
+
     return 0;
 }
