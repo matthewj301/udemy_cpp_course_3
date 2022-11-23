@@ -15,32 +15,24 @@ void print_vec(const vector<string>& string_vec) {
 int main() {
     // CAN RESIZE VECTORS, BECAUSE MEMORY IS NOT NECESSARILY
     // ALLOCATED RIGHT NEXT TO EACH OTHER
-    vector<string> stringVec(3);
+    vector<string> stringVec(5);
 
     stringVec[0] = "Sally";
     stringVec[1] = "John";
     stringVec[2] = "Matthew";
+    stringVec[3] = "Katie";
+    stringVec[4] = "Fred";
+
+    stringVec[3] = "John Braugh";
+
 
     print_vec(stringVec);
 
 
-    // HAVE TO USE PUSH/EMPLACE BACK TO INSERT NEW OBJECTS
-    // OUTSIDE OF INITIAL RANGE
-    stringVec.emplace_back("Katie");
 
-    print_vec(stringVec);
 
-    stringVec.insert(stringVec.end(), "Jesus");
 
-    print_vec(stringVec);
 
-    stringVec.insert(stringVec.begin() + 1, "Jake");
-
-    print_vec(stringVec);
-
-    stringVec.insert(stringVec.begin(), "Testing");
-
-    print_vec(stringVec);
 
     return 0;
 }
