@@ -25,6 +25,7 @@ int main() {
 
     stringVec[3] = "John Braugh";
 
+    stringVec.pop_back();
 
     print_vec(stringVec);
 
