@@ -31,8 +31,5 @@ int sumArray(array<int, 10> arrayToSum) {
 }
 
 void sumArray(array<int, 10> arrayToSum, int &theSum) {
-    theSum = 0;
-    for (auto num: arrayToSum) {
-        theSum += num;
-    }
+    theSum = sumArray(arrayToSum);
 }
