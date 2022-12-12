@@ -21,8 +21,12 @@ int main() {
 
 void feedKitty(int treats) {
     string errMsg {"The cat has had enough!"};
-    if (treats < 3) {
+    if (treats < 2) {
         throw AngryCatException(errMsg);
+    } else if (treats < 4) {
+        throw AngryCatException();
+    } else if (treats < 6) {
+        throw AngryCatException("The cat is almost satisfied...");
     }
     cout << "Kitty is happy with " << treats << " treats.";
 
