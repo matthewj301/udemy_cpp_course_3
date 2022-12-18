@@ -1,6 +1,7 @@
 //
 // Created by Matthew Johnson on 12/15/22.
 //
+#include <vector>
 #include "Player.h"
 #include "Warrior.h"
 #include "Priest.h"
@@ -8,8 +9,11 @@
 #include "iostream"
 
 using namespace std;
+enum Class {
+    UNKNOWN_CLASS, WARRIOR, PRIEST, MAGE
+};
 
-Player *createPlayer(string, Race);
+Player *createPlayer(const string &, const Race &, const Class &);
 
 void toLowercase(string &);
 
@@ -19,33 +23,59 @@ Race selectRace(string);
 
 void displayClasses();
 
-string selectClass();
+Class selectClass(string);
+
+void additionalPlayerCreation(bool &, string &);
 
 int main() {
-    string playerName{};
-    Race playerRace{NONE};
-    string tmpRace{};
-    string playerClass{};
+    vector<Player *> players{};
+    string playerCreationInput{};
+    bool enterMorePlayers{true};
 
-    cout << "Enter your player's name: ";
-    getline(cin, playerName);
+    while (enterMorePlayers) {
+        string playerName{};
+        Race playerRace{UNKNOWN_RACE};
+        string tmpRace{};
 
-    while (playerRace == NONE) {
-        cout << "Select your player's race: " << endl;
-        cout << "Possible options" << endl;
-        displayRaces();
-        cin >> tmpRace;
-        playerRace = selectRace(tmpRace);
+        Class playerClass{UNKNOWN_CLASS};
+        string tmpClass{};
+
+        cout << "Enter your player's name: ";
+        getline(cin, playerName);
+
+        while (playerRace == UNKNOWN_RACE) {
+            cout << endl << "Possible Race options: " << endl;
+            displayRaces();
+            cout << "Select your player's race: ";
+            cin >> tmpRace;
+            playerRace = selectRace(tmpRace);
+        }
+
+        while (playerClass == UNKNOWN_CLASS) {
+            cout << endl << "Possible Class options: " << endl;
+            displayClasses();
+            cout << "Select your player's Class: ";
+            cin >> tmpClass;
+            playerClass = selectClass(tmpClass);
+        }
+
+        players.push_back(createPlayer(playerName, playerRace, playerClass));
+        cout << "Do you want to create more players? ";
+        cin >> playerCreationInput;
+        additionalPlayerCreation(enterMorePlayers, playerCreationInput);
+                cin.ignore();
+
     }
 
-    Player *t1 = new Warrior("Matthew", ORC);
-
-    cout << "Name: " << t1->getName() << endl;
-    cout << "Race Enum: " << t1->getRace() << endl;
-    cout << "Race Str: " << t1->whatRace() << endl;
-    cout << "Hit Points: " << t1->getHitPoints() << endl;
-    cout << "Magic Points: " << t1->getMagicPoints() << endl;
-    cout << "Attack: " << t1->attack() << endl;
+    for (auto mainPlayer: players) {
+        cout << endl;
+        cout << "Name: " << mainPlayer->getName() << endl;
+        cout << "Race Enum: " << mainPlayer->getRace() << endl;
+        cout << "Race Str: " << mainPlayer->whatRace() << endl;
+        cout << "Hit Points: " << mainPlayer->getHitPoints() << endl;
+        cout << "Magic Points: " << mainPlayer->getMagicPoints() << endl;
+        cout << "Attack: " << mainPlayer->attack() << endl;
+    }
 
     return 0;
 }
@@ -63,6 +93,12 @@ void displayRaces() {
     cout << "Troll" << endl;
 }
 
+void displayClasses() {
+    cout << "Warrior" << endl;
+    cout << "Priest" << endl;
+    cout << "Mage" << endl;
+}
+
 Race selectRace(string enteredRace) {
     toLowercase(enteredRace);
     if (enteredRace == "human") {
@@ -76,9 +112,45 @@ Race selectRace(string enteredRace) {
     } else if (enteredRace == "troll") {
         return TROLL;
     } else {
-        return NONE;
+        cout << "Please enter a valid race..." << endl << endl;
+        return UNKNOWN_RACE;
     }
 }
 
-Player* createPlayer(string playerName, Race playerRace) {
+Class selectClass(string enteredClass) {
+    toLowercase(enteredClass);
+    if (enteredClass == "warrior") {
+        return WARRIOR;
+    } else if (enteredClass == "priest") {
+        return PRIEST;
+    } else if (enteredClass == "mage") {
+        return MAGE;
+    } else {
+        cout << "Please enter a valid class..." << endl << endl;
+        return UNKNOWN_CLASS;
+    }
+}
+
+Player *createPlayer(const string &playerName, const Race &playerRace, const Class &playerClass) {
+    if (playerClass == WARRIOR) {
+        Player *player = new Warrior(playerName, playerRace);
+        return player;
+    } else if (playerClass == PRIEST) {
+        Player *player = new Priest(playerName, playerRace);
+        return player;
+    } else {
+        Player *player = new Mage(playerName, playerRace);
+        return player;
+    }
+}
+
+void additionalPlayerCreation(bool &creationBool, string &userInput) {
+    toLowercase(userInput);
+    if (userInput == "yes") {
+        creationBool = true;
+    } else if (userInput == "true") {
+        creationBool = true;
+    } else {
+        creationBool = false;
+    }
 }

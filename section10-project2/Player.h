@@ -6,7 +6,7 @@
 #define UDEMY_CPP_COURSE_3_PLAYER_H
 #include "string"
 
-enum Race {NONE, HUMAN, ELF, DWARF, ORC, TROLL};
+enum Race {UNKNOWN_RACE, HUMAN, ELF, DWARF, ORC, TROLL};
 
 using namespace std;
 
