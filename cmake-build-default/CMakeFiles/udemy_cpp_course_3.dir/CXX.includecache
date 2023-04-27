@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/mjohnson/git/learning/udemy_cpp_course_3/section7-module71/AngryCatException.h
+stdexcept
+/Users/mjohnson/git/learning/udemy_cpp_course_3/section7-module71/stdexcept
+
+/Users/mjohnson/git/learning/udemy_cpp_course_3/section7-module71/main.cpp
+iostream
+-
+AngryCatException.h
+/Users/mjohnson/git/learning/udemy_cpp_course_3/section7-module71/AngryCatException.h
+
